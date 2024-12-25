@@ -1,5 +1,6 @@
 package com.example.singleactivity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,8 +20,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import models.CharactersModel
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -40,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier.padding(paddingValues)
                 ) {
-                    NavigationGraph(navController = navController) {
+                    NavigationGraph(navController = navController, CharsModel = CharactersModel()) {
                             isVisible ->
                         buttonsVisible = isVisible
                     }
